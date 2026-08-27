@@ -1939,3 +1939,255 @@ footer {
     }
 
 }
+/* =====================================================
+   RANK SYSTEM V8
+===================================================== */
+
+const rankSystem = [
+
+    {
+        name: "THE DECREE",
+        level: 10,
+        permission: "TOTAL AUTHORITY"
+    },
+
+    {
+        name: "OVERLORD",
+        level: 9,
+        permission: "COMMAND"
+    },
+
+    {
+        name: "EXECUTOR",
+        level: 8,
+        permission: "EXECUTION"
+    },
+
+    {
+        name: "ARCHON",
+        level: 7,
+        permission: "HIGH COMMAND"
+    },
+
+    {
+        name: "SHINIGAMI",
+        level: 6,
+        permission: "ELITE ACCESS"
+    },
+
+    {
+        name: "WARDEN",
+        level: 5,
+        permission: "SECURITY"
+    },
+
+    {
+        name: "ELITE AGENT",
+        level: 4,
+        permission: "ADVANCED ACCESS"
+    },
+
+    {
+        name: "DECREE AGENT",
+        level: 3,
+        permission: "STANDARD ACCESS"
+    },
+
+    {
+        name: "INITIATE",
+        level: 2,
+        permission: "LIMITED ACCESS"
+    },
+
+    {
+        name: "RECRUIT",
+        level: 1,
+        permission: "BASIC ACCESS"
+    }
+
+];
+
+
+const rankList =
+    document.getElementById(
+        "rankList"
+    );
+
+
+function getRankData() {
+
+    return rankSystem.find(
+        rank =>
+            rank.name === state.rank
+    ) || rankSystem[8];
+
+}
+
+
+function renderRanks() {
+
+    if (!rankList) return;
+
+
+    const current =
+        getRankData();
+
+
+    const currentDisplay =
+        document.getElementById(
+            "currentRankDisplay"
+        );
+
+
+    const progressText =
+        document.getElementById(
+            "rankProgressText"
+        );
+
+
+    if (currentDisplay) {
+
+        currentDisplay.textContent =
+            current.name;
+
+    }
+
+
+    if (progressText) {
+
+        progressText.textContent =
+            "Niveau requis : " +
+            current.level;
+
+    }
+
+
+    rankList.innerHTML = "";
+
+
+    rankSystem.forEach((rank, index) => {
+
+        const item =
+            document.createElement("div");
+
+
+        item.className =
+            "rank-item";
+
+
+        if (
+            rank.name === state.rank
+        ) {
+
+            item.classList.add(
+                "rank-current"
+            );
+
+        }
+
+
+        item.innerHTML = `
+
+            <div class="rank-item-number">
+                ${String(
+                    rankSystem.length - index
+                ).padStart(2, "0")}
+            </div>
+
+            <div class="rank-item-info">
+
+                <h3>
+                    ${rank.name}
+                </h3>
+
+                <p>
+                    Niveau requis :
+                    ${rank.level}
+                </p>
+
+            </div>
+
+            <div class="rank-permission">
+                ${rank.permission}
+            </div>
+
+        `;
+
+
+        rankList.appendChild(item);
+
+    });
+
+}
+
+
+function checkRankUpgrade() {
+
+    const possibleRanks =
+        rankSystem.filter(
+            rank =>
+                state.level >= rank.level
+        );
+
+
+    if (
+        possibleRanks.length === 0
+    ) {
+        return;
+    }
+
+
+    const highestRank =
+        possibleRanks[0];
+
+
+    if (
+        highestRank.name !==
+        state.rank
+    ) {
+
+        const oldRank =
+            state.rank;
+
+
+        state.rank =
+            highestRank.name;
+
+
+        saveState();
+
+        updateProfile();
+
+        addNotification(
+            "PROMOTION : " +
+            oldRank +
+            " → " +
+            state.rank
+        );
+
+        renderRanks();
+
+    }
+
+}
+
+
+/* Vérifie automatiquement le rang
+   après un gain d'XP */
+
+const originalAddXP =
+    addXP;
+
+
+addXP = function(amount) {
+
+    originalAddXP(amount);
+
+    checkRankUpgrade();
+
+    renderRanks();
+
+};
+
+
+renderRanks();
