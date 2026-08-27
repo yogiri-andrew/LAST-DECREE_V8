@@ -1760,3 +1760,182 @@ footer {
     }
 
 }
+/* =====================================================
+   RANK SYSTEM V8
+===================================================== */
+
+.current-rank-panel {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+
+    padding: 30px;
+    margin-bottom: 25px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(157,78,221,.14),
+            rgba(8,4,15,.95)
+        );
+
+    border: 1px solid
+        rgba(199,125,255,.3);
+
+    box-shadow:
+        0 0 45px
+        rgba(157,78,221,.08);
+}
+
+.current-rank-symbol {
+    width: 80px;
+    height: 80px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #c77dff;
+
+    color: #c77dff;
+
+    font-size: 35px;
+
+    box-shadow:
+        0 0 25px
+        rgba(199,125,255,.2);
+}
+
+.current-rank-panel span {
+    color: #777;
+
+    font-size: 9px;
+
+    letter-spacing: .2em;
+}
+
+.current-rank-panel h3 {
+    margin-top: 7px;
+
+    color: #fff;
+
+    font-family: Orbitron, sans-serif;
+
+    font-size: 20px;
+}
+
+.current-rank-panel p {
+    margin-top: 7px;
+
+    color: #9d4edd;
+
+    font-size: 11px;
+}
+
+.rank-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.rank-item {
+    display: grid;
+
+    grid-template-columns:
+        60px 1fr auto;
+
+    align-items: center;
+
+    gap: 20px;
+
+    padding: 20px;
+
+    background:
+        rgba(10,5,18,.85);
+
+    border:
+        1px solid
+        rgba(199,125,255,.13);
+
+    transition: .3s;
+}
+
+.rank-item:hover {
+    border-color:
+        rgba(199,125,255,.45);
+
+    transform:
+        translateX(5px);
+}
+
+.rank-item-number {
+    color: #6d3c91;
+
+    font-family: Orbitron, sans-serif;
+
+    font-size: 15px;
+}
+
+.rank-item-info h3 {
+    color: white;
+
+    font-family: Orbitron, sans-serif;
+
+    font-size: 14px;
+}
+
+.rank-item-info p {
+    color: #777;
+
+    margin-top: 5px;
+
+    font-size: 10px;
+}
+
+.rank-permission {
+    padding: 7px 10px;
+
+    border:
+        1px solid
+        rgba(199,125,255,.2);
+
+    color: #c77dff;
+
+    font-size: 8px;
+
+    letter-spacing: .1em;
+}
+
+.rank-current {
+    border-color:
+        rgba(255,60,172,.5);
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(255,60,172,.08),
+            rgba(157,78,221,.04)
+        );
+
+    box-shadow:
+        0 0 25px
+        rgba(255,60,172,.06);
+}
+
+.rank-current .rank-item-number {
+    color: #ff3cac;
+}
+
+@media (max-width: 600px) {
+
+    .rank-item {
+        grid-template-columns:
+            40px 1fr;
+    }
+
+    .rank-permission {
+        grid-column: 2;
+        width: fit-content;
+    }
+
+}
