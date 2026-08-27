@@ -1,3 +1,5 @@
+console.log("🔥 LAST DECREE JS CHARGÉ");
+document.body.classList.add("JS-TEST");
 "use strict";
 
 /* =========================================================
