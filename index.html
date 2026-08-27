@@ -39,6 +39,9 @@
     <button data-section="members">
     MEMBERS
     </button>
+   <button data-section="ranks">
+    RANKS
+   </button>
     </nav>
 
     <button id="menuBtn" class="menu-btn">☰</button>
@@ -59,7 +62,37 @@
             + AJOUTER UN MEMBRE
         </button>
     </div>
+    <section id="ranks" class="section">
 
+    <div class="section-title">
+        <span>AUTHORITY // SYSTEM</span>
+        <h2>RANKS</h2>
+        <p>Hiérarchie et niveau d'autorité.</p>
+    </div>
+
+    <div class="current-rank-panel">
+
+        <div class="current-rank-symbol">◈</div>
+
+        <div>
+            <span>CURRENT RANK</span>
+            <h3 id="currentRankDisplay">
+                DECREE AGENT
+            </h3>
+
+            <p id="rankProgressText">
+                Progression...
+            </p>
+        </div>
+
+    </div>
+
+    <div
+        id="rankList"
+        class="rank-list"
+    ></div>
+
+    </section>
     <div id="membersContainer" class="members-grid"></div>
 
     </section>
