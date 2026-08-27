@@ -1329,3 +1329,529 @@ if (addMemberBtn) {
 
 
 renderMembers();
+/* =====================================================
+   ADMIN PANEL V8
+===================================================== */
+
+function renderAdminPanel() {
+
+    const membersList =
+        document.getElementById(
+            "adminMembersList"
+        );
+
+    const decreeList =
+        document.getElementById(
+            "adminDecreeList"
+        );
+
+    const memberCount =
+        document.getElementById(
+            "adminMembers"
+        );
+
+    const decreeCount =
+        document.getElementById(
+            "adminDecrees"
+        );
+
+
+    if (memberCount) {
+        memberCount.textContent =
+            state.members.length;
+    }
+
+    if (decreeCount) {
+        decreeCount.textContent =
+            state.decrees.length;
+    }
+
+
+    if (membersList) {
+
+        membersList.innerHTML = "";
+
+
+        state.members.forEach(
+            (member, index) => {
+
+                const row =
+                    document.createElement("div");
+
+                row.className =
+                    "admin-member";
+
+
+                row.innerHTML = `
+
+                    <div class="admin-member-info">
+
+                        <strong>
+                            ${member.name}
+                        </strong>
+
+                        <span>
+                            ${member.rank}
+                            // LEVEL ${member.level}
+                            // ${member.status}
+                        </span>
+
+                    </div>
+
+                    <div class="admin-actions">
+
+                        <button
+                            data-promote="${index}"
+                        >
+                            ▲ PROMOTE
+                        </button>
+
+                        <button
+                            data-demote="${index}"
+                        >
+                            ▼ DEMOTE
+                        </button>
+
+                        <button
+                            class="danger"
+                            data-delete-member="${index}"
+                        >
+                            DELETE
+                        </button>
+
+                    </div>
+
+                `;
+
+
+                membersList.appendChild(row);
+
+            }
+        );
+
+    }
+
+
+    if (decreeList) {
+
+        decreeList.innerHTML = "";
+
+
+        state.decrees.forEach(
+            (decree, index) => {
+
+                const row =
+                    document.createElement("div");
+
+                row.className =
+                    "admin-decree";
+
+
+                row.innerHTML = `
+
+                    <div class="admin-decree-info">
+
+                        <strong>
+                            ${decree.title}
+                        </strong>
+
+                        <span>
+                            ${decree.status}
+                        </span>
+
+                    </div>
+
+                    <div class="admin-actions">
+
+                        <button
+                            data-toggle-decree="${index}"
+                        >
+                            TOGGLE
+                        </button>
+
+                        <button
+                            class="danger"
+                            data-delete-decree="${index}"
+                        >
+                            DELETE
+                        </button>
+
+                    </div>
+
+                `;
+
+
+                decreeList.appendChild(row);
+
+            }
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   ADMIN — ADD MEMBER
+===================================================== */
+
+const adminAddMember =
+    document.getElementById(
+        "adminAddMember"
+    );
+
+
+if (adminAddMember) {
+
+    adminAddMember.addEventListener(
+        "click",
+        () => {
+
+            const name =
+                prompt(
+                    "Identifiant du membre :"
+                );
+
+
+            if (!name || !name.trim()) {
+                return;
+            }
+
+
+            const rank =
+                prompt(
+                    "Rang :",
+                    "RECRUIT"
+                );
+
+
+            state.members.push({
+
+                name:
+                    name
+                        .trim()
+                        .toUpperCase(),
+
+                rank:
+                    rank &&
+                    rank.trim()
+                        ? rank
+                            .trim()
+                            .toUpperCase()
+                        : "RECRUIT",
+
+                level: 1,
+
+                status: "ONLINE"
+
+            });
+
+
+            saveState();
+
+            renderMembers();
+
+            renderAdminPanel();
+
+            addNotification(
+                "ADMIN : membre ajouté."
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   ADMIN — ADD DECREE
+===================================================== */
+
+const adminAddDecree =
+    document.getElementById(
+        "adminAddDecree"
+    );
+
+
+if (adminAddDecree) {
+
+    adminAddDecree.addEventListener(
+        "click",
+        () => {
+
+            createDecree();
+
+            renderAdminPanel();
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   ADMIN — ACTIONS
+===================================================== */
+
+document.addEventListener(
+    "click",
+    event => {
+
+        const promote =
+            event.target.closest(
+                "[data-promote]"
+            );
+
+        const demote =
+            event.target.closest(
+                "[data-demote]"
+            );
+
+        const deleteMember =
+            event.target.closest(
+                "[data-delete-member]"
+            );
+
+        const toggleDecree =
+            event.target.closest(
+                "[data-toggle-decree]"
+            );
+
+        const deleteDecree =
+            event.target.closest(
+                "[data-delete-decree]"
+            );
+
+
+        /* PROMOTION */
+
+        if (promote) {
+
+            const index =
+                Number(
+                    promote.dataset.promote
+                );
+
+            const member =
+                state.members[index];
+
+
+            if (!member) return;
+
+
+            const currentIndex =
+                rankSystem.findIndex(
+                    rank =>
+                        rank.name ===
+                        member.rank
+                );
+
+
+            if (
+                currentIndex > 0
+            ) {
+
+                member.rank =
+                    rankSystem[
+                        currentIndex - 1
+                    ].name;
+
+            }
+
+
+            saveState();
+
+            renderMembers();
+
+            renderAdminPanel();
+
+            addNotification(
+                member.name +
+                " a été promu."
+            );
+
+        }
+
+
+        /* RÉTROGRADATION */
+
+        if (demote) {
+
+            const index =
+                Number(
+                    demote.dataset.demote
+                );
+
+            const member =
+                state.members[index];
+
+
+            if (!member) return;
+
+
+            const currentIndex =
+                rankSystem.findIndex(
+                    rank =>
+                        rank.name ===
+                        member.rank
+                );
+
+
+            if (
+                currentIndex <
+                rankSystem.length - 1 &&
+                currentIndex >= 0
+            ) {
+
+                member.rank =
+                    rankSystem[
+                        currentIndex + 1
+                    ].name;
+
+            }
+
+
+            saveState();
+
+            renderMembers();
+
+            renderAdminPanel();
+
+            addNotification(
+                member.name +
+                " a été rétrogradé."
+            );
+
+        }
+
+
+        /* SUPPRESSION MEMBRE */
+
+        if (deleteMember) {
+
+            const index =
+                Number(
+                    deleteMember.dataset
+                        .deleteMember
+                );
+
+
+            const member =
+                state.members[index];
+
+
+            if (!member) return;
+
+
+            const confirmDelete =
+                confirm(
+                    "Supprimer " +
+                    member.name +
+                    " ?"
+                );
+
+
+            if (!confirmDelete) {
+                return;
+            }
+
+
+            state.members.splice(
+                index,
+                1
+            );
+
+
+            saveState();
+
+            renderMembers();
+
+            renderAdminPanel();
+
+            addNotification(
+                "Membre supprimé."
+            );
+
+        }
+
+
+        /* ACTIVER / ARCHIVER DÉCRET */
+
+        if (toggleDecree) {
+
+            const index =
+                Number(
+                    toggleDecree.dataset
+                        .toggleDecree
+                );
+
+
+            const decree =
+                state.decrees[index];
+
+
+            if (!decree) return;
+
+
+            decree.status =
+                decree.status === "ACTIVE"
+                    ? "ARCHIVED"
+                    : "ACTIVE";
+
+
+            saveState();
+
+            renderDecrees();
+
+            renderAdminPanel();
+
+        }
+
+
+        /* SUPPRESSION DÉCRET */
+
+        if (deleteDecree) {
+
+            const index =
+                Number(
+                    deleteDecree.dataset
+                        .deleteDecree
+                );
+
+
+            const confirmDelete =
+                confirm(
+                    "Supprimer ce décret ?"
+                );
+
+
+            if (!confirmDelete) {
+                return;
+            }
+
+
+            state.decrees.splice(
+                index,
+                1
+            );
+
+
+            saveState();
+
+            renderDecrees();
+
+            renderAdminPanel();
+
+            addNotification(
+                "Décret supprimé."
+            );
+
+        }
+
+    }
+);
+
+
+/* INITIALISATION */
+
+renderAdminPanel();
