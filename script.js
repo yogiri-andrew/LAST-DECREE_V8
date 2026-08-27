@@ -1208,69 +1208,64 @@ const rankSystem = [
     }
 
 ];
-
-
 /* =====================================================
-   MEMBERS SYSTEM V8
+   MEMBERS SYSTEM V8 — CLEAN
 ===================================================== */
 
+const rankSystem = [
+    { name: "THE DECREE", level: 10, permission: "TOTAL AUTHORITY" },
+    { name: "OVERLORD", level: 9, permission: "COMMAND" },
+    { name: "EXECUTOR", level: 8, permission: "EXECUTION" },
+    { name: "ARCHON", level: 7, permission: "HIGH COMMAND" },
+    { name: "SHINIGAMI", level: 6, permission: "ELITE ACCESS" },
+    { name: "WARDEN", level: 5, permission: "SECURITY" },
+    { name: "ELITE AGENT", level: 4, permission: "ADVANCED ACCESS" },
+    { name: "DECREE AGENT", level: 3, permission: "STANDARD ACCESS" },
+    { name: "INITIATE", level: 2, permission: "LIMITED ACCESS" },
+    { name: "RECRUIT", level: 1, permission: "BASIC ACCESS" }
+];
+
 if (!Array.isArray(state.members)) {
-
     state.members = [
-
         {
             name: "SHIDO",
             rank: "DECREE AGENT",
             level: 1,
             status: "ONLINE"
         },
-
         {
             name: "YOGIRI",
             rank: "EXECUTOR",
             level: 12,
             status: "ONLINE"
         },
-
         {
             name: "UNKNOWN",
             rank: "SHINIGAMI",
             level: 8,
             status: "OFFLINE"
         }
-
     ];
 
     saveState();
-
 }
 
-
 const membersContainer =
-    document.getElementById(
-        "membersContainer"
-    );
-
+    document.getElementById("membersContainer");
 
 function renderMembers() {
 
     if (!membersContainer) return;
 
     const searchInput =
-        document.getElementById(
-            "memberSearch"
-        );
+        document.getElementById("memberSearch");
 
     const rankFilter =
-        document.getElementById(
-            "memberRankFilter"
-        );
+        document.getElementById("memberRankFilter");
 
     const search =
         searchInput
-            ? searchInput.value
-                .trim()
-                .toLowerCase()
+            ? searchInput.value.trim().toLowerCase()
             : "";
 
     const selectedRank =
@@ -1278,95 +1273,71 @@ function renderMembers() {
             ? rankFilter.value
             : "ALL";
 
-
     const filtered =
         state.members.filter(member => {
 
-            const matchesName =
-                member.name
-                    .toLowerCase()
-                    .includes(search);
+            const name =
+                String(member.name || "").toLowerCase();
 
-            const matchesRank =
-                selectedRank === "ALL" ||
-                member.rank === selectedRank;
+            const rank =
+                String(member.rank || "");
 
             return (
-                matchesName &&
-                matchesRank
+                name.includes(search) &&
+                (
+                    selectedRank === "ALL" ||
+                    rank === selectedRank
+                )
             );
-
         });
-
 
     membersContainer.innerHTML = "";
 
-
     if (filtered.length === 0) {
 
-        membersContainer.innerHTML = `
-            <div class="empty-log">
+        membersContainer.innerHTML =
+            `<div class="empty-log">
                 Aucun membre trouvé.
-            </div>
-        `;
+            </div>`;
 
         return;
     }
-
 
     filtered.forEach(member => {
 
         const card =
             document.createElement("div");
 
-        card.className =
-            "member-card";
-
-        card.style.cursor =
-            "pointer";
-
+        card.className = "member-card";
+        card.style.cursor = "pointer";
 
         card.innerHTML = `
-
             <div class="member-avatar">
-                ${member.name.charAt(0)}
+                ${String(member.name).charAt(0).toUpperCase()}
             </div>
 
-            <h3>
-                ${member.name}
-            </h3>
+            <h3>${member.name}</h3>
 
             <div class="member-rank">
                 ${member.rank}
             </div>
 
             <div class="member-level">
-
                 <span>LEVEL</span>
-
-                <strong>
-                    ${member.level}
-                </strong>
-
+                <strong>${member.level}</strong>
             </div>
 
             <div class="member-status">
                 ${member.status}
             </div>
-
         `;
 
-
-        card.addEventListener(
-            "click",
-            () => openMemberProfile(member)
-        );
-
+        card.addEventListener("click", () => {
+            openMemberProfile(member);
+        });
 
         membersContainer.appendChild(card);
-
     });
-
 }
 
 
@@ -1377,103 +1348,96 @@ function renderMembers() {
 function openMemberProfile(member) {
 
     const modal =
-        document.getElementById(
-            "memberModal"
-        );
+        document.getElementById("memberModal");
 
     if (!modal) return;
 
-
     const avatar =
-        document.getElementById(
-            "modalAvatar"
-        );
+        document.getElementById("modalAvatar");
 
     const name =
-        document.getElementById(
-            "modalName"
-        );
+        document.getElementById("modalName");
 
     const rank =
-        document.getElementById(
-            "modalRank"
-        );
+        document.getElementById("modalRank");
 
     const level =
-        document.getElementById(
-            "modalLevel"
-        );
+        document.getElementById("modalLevel");
 
     const status =
-        document.getElementById(
-            "modalStatus"
-        );
+        document.getElementById("modalStatus");
 
     const id =
-        document.getElementById(
-            "modalId"
-        );
-
+        document.getElementById("modalId");
 
     if (avatar) {
         avatar.textContent =
-            member.name.charAt(0);
+            String(member.name).charAt(0).toUpperCase();
     }
 
     if (name) {
-        name.textContent =
-            member.name;
+        name.textContent = member.name;
     }
 
     if (rank) {
-        rank.textContent =
-            member.rank;
+        rank.textContent = member.rank;
     }
 
     if (level) {
-        level.textContent =
-            member.level;
+        level.textContent = member.level;
     }
 
     if (status) {
-        status.textContent =
-            member.status;
+        status.textContent = member.status;
     }
-
 
     const index =
         state.members.indexOf(member);
 
-
     if (id) {
-
         id.textContent =
             "LD-" +
-            String(index + 1)
-                .padStart(3, "0");
-
+            String(index + 1).padStart(3, "0");
     }
 
-
     modal.classList.add("show");
-
 }
 
 
 /* =====================================================
-   MEMBER MODAL
+   SEARCH
+===================================================== */
+
+const memberSearch =
+    document.getElementById("memberSearch");
+
+const memberRankFilter =
+    document.getElementById("memberRankFilter");
+
+if (memberSearch) {
+    memberSearch.addEventListener(
+        "input",
+        renderMembers
+    );
+}
+
+if (memberRankFilter) {
+    memberRankFilter.addEventListener(
+        "change",
+        renderMembers
+    );
+}
+
+
+/* =====================================================
+   CLOSE PROFILE
 ===================================================== */
 
 const closeMemberModal =
-    document.getElementById(
-        "closeMemberModal"
-    );
+    document.getElementById("closeMemberModal");
 
 const memberModal =
-    document.getElementById(
-        "memberModal"
-    );
-
+    document.getElementById("memberModal");
 
 if (closeMemberModal) {
 
@@ -1482,18 +1446,12 @@ if (closeMemberModal) {
         () => {
 
             if (memberModal) {
-
-                memberModal.classList.remove(
-                    "show"
-                );
-
+                memberModal.classList.remove("show");
             }
 
         }
     );
-
 }
-
 
 if (memberModal) {
 
@@ -1501,55 +1459,12 @@ if (memberModal) {
         "click",
         event => {
 
-            if (
-                event.target ===
-                memberModal
-            ) {
-
-                memberModal.classList.remove(
-                    "show"
-                );
-
+            if (event.target === memberModal) {
+                memberModal.classList.remove("show");
             }
 
         }
     );
-
-}
-
-
-/* =====================================================
-   MEMBER SEARCH
-===================================================== */
-
-const memberSearch =
-    document.getElementById(
-        "memberSearch"
-    );
-
-const memberRankFilter =
-    document.getElementById(
-        "memberRankFilter"
-    );
-
-
-if (memberSearch) {
-
-    memberSearch.addEventListener(
-        "input",
-        renderMembers
-    );
-
-}
-
-
-if (memberRankFilter) {
-
-    memberRankFilter.addEventListener(
-        "change",
-        renderMembers
-    );
-
 }
 
 
@@ -1558,10 +1473,7 @@ if (memberRankFilter) {
 ===================================================== */
 
 const addMemberBtn =
-    document.getElementById(
-        "addMemberBtn"
-    );
-
+    document.getElementById("addMemberBtn");
 
 if (addMemberBtn) {
 
@@ -1570,22 +1482,15 @@ if (addMemberBtn) {
         () => {
 
             const name =
-                prompt(
-                    "Identifiant du nouveau membre :"
-                );
+                prompt("Identifiant du nouveau membre :");
 
-
-            if (!name || !name.trim()) {
-                return;
-            }
-
+            if (!name || !name.trim()) return;
 
             const rank =
                 prompt(
                     "Rang du membre :",
                     "RECRUIT"
                 );
-
 
             state.members.push({
 
@@ -1603,36 +1508,35 @@ if (addMemberBtn) {
 
             });
 
-
             saveState();
 
             renderMembers();
 
-            if (
-                typeof addXP ===
-                "function"
-            ) {
-
+            if (typeof addXP === "function") {
                 addXP(15);
-
             }
 
-            addNotification(
-                "Nouveau membre ajouté : " +
-                name.toUpperCase()
-            );
+            if (typeof addNotification === "function") {
+                addNotification(
+                    "Nouveau membre ajouté : " +
+                    name.toUpperCase()
+                );
+            }
 
         }
     );
-
 }
 
 
 /* =====================================================
-   RENDER MEMBERS
+   INITIALISATION
 ===================================================== */
 
 renderMembers();
+
+            
+                
+    
 /* =====================================================
    ADMIN PANEL V8
 ===================================================== */
@@ -2159,70 +2063,6 @@ document.addEventListener(
 /* INITIALISATION */
 
 renderAdminPanel();
-/* =====================================================
-   MEMBER SEARCH + PROFILE V8
-===================================================== */
-
-const memberSearch =
-    document.getElementById(
-        "memberSearch"
-    );
-
-const memberRankFilter =
-    document.getElementById(
-        "memberRankFilter"
-    );
-
-
-function renderMembers() {
-
-    if (!membersContainer) return;
-
-    const search =
-        memberSearch
-            ? memberSearch.value
-                .trim()
-                .toLowerCase()
-            : "";
-
-    const rank =
-        memberRankFilter
-            ? memberRankFilter.value
-            : "ALL";
-
-
-    const filtered =
-        state.members.filter(member => {
-
-            const matchesName =
-                member.name
-                    .toLowerCase()
-                    .includes(search);
-
-            const matchesRank =
-                rank === "ALL" ||
-                member.rank === rank;
-
-            return (
-                matchesName &&
-                matchesRank
-            );
-
-        });
-
-
-    membersContainer.innerHTML = "";
-
-
-    if (filtered.length === 0) {
-
-        membersContainer.innerHTML = `
-            <div class="empty-log">
-                Aucun membre trouvé.
-            </div>
-        `;
-
-        return;
     }
 
 
@@ -2414,7 +2254,3 @@ if (memberRankFilter) {
     );
 
 }
-
-
-/* Re-render avec recherche */
-renderMembers();
