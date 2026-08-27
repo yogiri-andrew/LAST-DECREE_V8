@@ -2191,3 +2191,154 @@ addXP = function(amount) {
 
 
 renderRanks();
+/* =====================================================
+   CLASSIFIED — MOBILE FIX V8.1
+===================================================== */
+
+#classifiedScreen {
+    position: fixed !important;
+    inset: 0 !important;
+
+    width: 100vw !important;
+    height: 100vh !important;
+
+    min-height: 100dvh;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 20px !important;
+
+    box-sizing: border-box;
+
+    overflow: hidden;
+
+    z-index: 99999 !important;
+}
+
+.classified-box {
+    position: relative;
+
+    width: min(430px, 100%) !important;
+
+    max-width: 430px !important;
+
+    box-sizing: border-box;
+
+    margin: auto !important;
+
+    padding: 35px 25px !important;
+
+    text-align: center;
+
+    flex-shrink: 0;
+}
+
+.classified-box h1 {
+    font-size: clamp(32px, 11vw, 58px) !important;
+
+    line-height: 1;
+
+    white-space: nowrap;
+}
+
+.classified-box > p {
+    font-size: 10px !important;
+
+    line-height: 1.5;
+}
+
+.classified-box label {
+    text-align: left;
+
+    display: block;
+
+    margin-top: 20px;
+}
+
+#agentName {
+    display: block;
+
+    width: 100% !important;
+
+    height: 48px;
+
+    box-sizing: border-box;
+
+    margin: 0 !important;
+
+    font-size: 12px;
+}
+
+#accessButton {
+    display: block;
+
+    width: 100% !important;
+
+    height: 48px;
+
+    box-sizing: border-box;
+
+    margin-top: 12px !important;
+}
+
+#accessStatus {
+    min-height: 20px;
+}
+
+
+/* PETITS ÉCRANS */
+
+@media (max-width: 500px) {
+
+    #classifiedScreen {
+        padding: 15px !important;
+    }
+
+    .classified-box {
+        padding: 30px 20px !important;
+    }
+
+    .classified-symbol {
+        font-size: 38px;
+    }
+
+    .classified-label {
+        font-size: 8px;
+    }
+
+    .classified-box h1 {
+        font-size: 38px !important;
+    }
+
+}
+
+
+/* TRÈS PETITS ÉCRANS */
+
+@media (max-width: 360px) {
+
+    .classified-box {
+        padding: 25px 16px !important;
+    }
+
+    .classified-box h1 {
+        font-size: 32px !important;
+    }
+
+    .classified-box > p {
+        font-size: 9px !important;
+    }
+html,
+body {
+    width: 100%;
+    max-width: 100%;
+
+    margin: 0;
+    padding: 0;
+
+    overflow-x: hidden;
+}
+}
