@@ -1038,91 +1038,108 @@ console.log(
     "V8 FREE EDITION — SYSTEM READY"
 );
 /* =====================================================
-   CLASSIFIED ACCESS V8
+   CLASSIFIED ACCESS V8.1 — FIX
 ===================================================== */
 
-const classifiedScreen =
-    document.getElementById("classifiedScreen");
+document.addEventListener("DOMContentLoaded", () => {
 
-const agentName =
-    document.getElementById("agentName");
+    const screen = document.getElementById("classifiedScreen");
+    const input = document.getElementById("agentName");
+    const button = document.getElementById("accessButton");
+    const status = document.getElementById("accessStatus");
 
-const accessButton =
-    document.getElementById("accessButton");
-
-const accessStatus =
-    document.getElementById("accessStatus");
-
-
-function grantAccess() {
-
-    const name =
-        agentName.value.trim();
-
-    if (!name) {
-
-        accessStatus.textContent =
-            "⚠ IDENTIFIANT REQUIS";
-
+    if (!screen || !input || !button) {
+        console.error("❌ CLASSIFIED : éléments manquants");
         return;
     }
 
-    state.username =
-        name.toUpperCase();
+    function authenticate() {
 
-    saveState();
+        const name = input.value.trim();
 
-    updateProfile();
+        // Identifiant obligatoire
+        if (!name) {
 
-    accessStatus.style.color =
-        "#55ff99";
+            if (status) {
+                status.textContent =
+                    "⚠ IDENTIFIANT REQUIS";
+                status.style.color = "#ff3158";
+            }
 
-    accessStatus.textContent =
-        "✓ IDENTITÉ RECONNUE";
+            input.focus();
+            return;
+        }
 
-    accessButton.disabled = true;
+        // Enregistrer le nom
+        state.username = name.toUpperCase();
 
-    setTimeout(() => {
+        // Si aucun rang valide n'existe
+        if (!state.rank || state.rank === "CLASSIFIED") {
+            state.rank = "RECRUIT";
+        }
 
-        classifiedScreen.classList.add(
-            "access-granted"
+        saveState();
+
+        // Message de validation
+        if (status) {
+            status.textContent =
+                "✓ IDENTITÉ RECONNUE";
+            status.style.color = "#55ff99";
+        }
+
+        button.disabled = true;
+        button.textContent = "ACCÈS ACCORDÉ";
+
+        console.log(
+            "✓ LAST DECREE :",
+            state.username
         );
 
-        addNotification(
-            "Connexion de " +
-            state.username +
-            " établie."
-        );
+        // Ouvrir le site
+        setTimeout(() => {
 
-    }, 700);
+            screen.classList.add("access-granted");
 
-}
+            updateProfile();
 
+            if (typeof updateDashboard === "function") {
+                updateDashboard();
+            }
 
-if (accessButton) {
+            if (typeof renderRanks === "function") {
+                renderRanks();
+            }
 
-    accessButton.addEventListener(
+            if (typeof addNotification === "function") {
+                addNotification(
+                    "Connexion établie : " +
+                    state.username
+                );
+            }
+
+        }, 600);
+    }
+
+    // Bouton
+    button.addEventListener(
         "click",
-        grantAccess
+        authenticate
     );
 
-}
-
-
-if (agentName) {
-
-    agentName.addEventListener(
+    // Touche Entrée
+    input.addEventListener(
         "keydown",
-        event => {
+        (event) => {
 
             if (event.key === "Enter") {
-                grantAccess();
+                authenticate();
             }
 
         }
     );
 
-}
+});
+
 /* =====================================================
    MEMBERS SYSTEM V8
 ===================================================== */
