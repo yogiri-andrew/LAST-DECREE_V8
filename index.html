@@ -42,13 +42,85 @@
    <button data-section="ranks">
     RANKS
    </button>
+   <button data-section="admin">
+    ADMIN
+   </button>
     </nav>
-
+    
     <button id="menuBtn" class="menu-btn">☰</button>
   </header>
 
   <main>
- 
+ <section id="admin" class="section">
+
+    <div class="section-title">
+        <span>COMMAND // AUTHORITY</span>
+        <h2>ADMIN PANEL</h2>
+        <p>Centre de contrôle de LAST DECREE.</p>
+    </div>
+
+    <div class="admin-warning">
+        <span>⚠ ADMINISTRATOR MODE</span>
+        <p>
+            Les modifications effectuées ici sont
+            enregistrées localement.
+        </p>
+    </div>
+
+    <div class="admin-stats">
+
+        <div class="admin-stat">
+            <span>MEMBERS</span>
+            <strong id="adminMembers">0</strong>
+        </div>
+
+        <div class="admin-stat">
+            <span>DECREES</span>
+            <strong id="adminDecrees">0</strong>
+        </div>
+
+        <div class="admin-stat">
+            <span>SYSTEM</span>
+            <strong class="online">ONLINE</strong>
+        </div>
+
+    </div>
+
+    <div class="admin-section">
+
+        <div class="admin-section-header">
+            <h3>MEMBER MANAGEMENT</h3>
+
+            <button
+                class="primary-btn"
+                id="adminAddMember"
+            >
+                + MEMBER
+            </button>
+        </div>
+
+        <div id="adminMembersList"></div>
+
+    </div>
+
+    <div class="admin-section">
+
+        <div class="admin-section-header">
+            <h3>DECREE MANAGEMENT</h3>
+
+            <button
+                class="primary-btn"
+                id="adminAddDecree"
+            >
+                + DECREE
+            </button>
+        </div>
+
+        <div id="adminDecreeList"></div>
+
+    </div>
+
+ </section>
     <section id="members" class="section">
 
     <div class="section-title">
