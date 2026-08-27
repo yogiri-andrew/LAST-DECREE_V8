@@ -1181,9 +1181,6 @@ const membersContainer =
         "membersContainer"
     );
 
-
-function renderMembers() {
-
     if (!membersContainer) return;
 
 
