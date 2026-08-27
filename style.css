@@ -2836,3 +2836,8 @@ body {
     }
 
 }
+#loader.hidden {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
