@@ -1408,3 +1408,234 @@ footer {
     }
 
   }
+/* =====================================================
+   CLASSIFIED ACCESS
+===================================================== */
+
+#classifiedScreen {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(157,78,221,.12),
+            transparent 40%
+        ),
+        #020107;
+
+    transition:
+        opacity .7s ease,
+        visibility .7s ease;
+}
+
+#classifiedScreen.access-granted {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.classified-box {
+    width: min(450px, 90%);
+
+    padding: 45px 35px;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(20,8,35,.95),
+            rgba(5,3,10,.98)
+        );
+
+    border:
+        1px solid rgba(199,125,255,.3);
+
+    box-shadow:
+        0 0 70px rgba(157,78,221,.12);
+
+    animation:
+        classifiedAppear .8s ease;
+}
+
+@keyframes classifiedAppear {
+
+    from {
+        opacity: 0;
+        transform: scale(.94) translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+
+}
+
+.classified-symbol {
+    font-size: 45px;
+
+    color: #c77dff;
+
+    text-shadow:
+        0 0 20px #9d4edd;
+
+    margin-bottom: 20px;
+}
+
+.classified-label {
+    color: #ff3cac;
+
+    font-size: 9px;
+
+    letter-spacing: .35em;
+}
+
+.classified-box h1 {
+    font-family: Orbitron, sans-serif;
+
+    font-size: clamp(35px, 9vw, 60px);
+
+    margin: 15px 0 5px;
+
+    color: white;
+
+    letter-spacing: .08em;
+}
+
+.classified-box > p {
+    color: #777;
+
+    font-size: 11px;
+
+    letter-spacing: .15em;
+}
+
+.classified-line {
+    height: 1px;
+
+    margin: 30px 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #9d4edd,
+            transparent
+        );
+}
+
+.classified-box label {
+    display: block;
+
+    text-align: left;
+
+    color: #8e7c9b;
+
+    font-size: 9px;
+
+    letter-spacing: .2em;
+
+    margin-bottom: 8px;
+}
+
+#agentName {
+    width: 100%;
+
+    padding: 15px;
+
+    background: rgba(255,255,255,.025);
+
+    border:
+        1px solid rgba(199,125,255,.2);
+
+    outline: none;
+
+    color: white;
+
+    font-family: Orbitron, sans-serif;
+
+    font-size: 12px;
+
+    text-align: center;
+
+    transition: .25s;
+}
+
+#agentName:focus {
+    border-color: #c77dff;
+
+    box-shadow:
+        0 0 20px rgba(199,125,255,.1);
+}
+
+#agentName::placeholder {
+    color: #51495a;
+}
+
+#accessButton {
+    width: 100%;
+
+    margin-top: 12px;
+
+    padding: 15px;
+
+    border: none;
+
+    background:
+        linear-gradient(
+            90deg,
+            #7b2cbf,
+            #c77dff,
+            #ff3cac
+        );
+
+    color: white;
+
+    font-family: Orbitron, sans-serif;
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    letter-spacing: .15em;
+
+    transition: .25s;
+}
+
+#accessButton:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 0 30px rgba(199,125,255,.3);
+}
+
+#accessStatus {
+    min-height: 20px;
+
+    margin-top: 15px;
+
+    color: #ff3158;
+
+    font-size: 10px;
+
+    letter-spacing: .08em;
+}
+
+.classified-box small {
+    display: block;
+
+    margin-top: 30px;
+
+    color: #39333f;
+
+    font-size: 8px;
+
+    letter-spacing: .15em;
+}
