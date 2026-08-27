@@ -1855,3 +1855,262 @@ document.addEventListener(
 /* INITIALISATION */
 
 renderAdminPanel();
+/* =====================================================
+   MEMBER SEARCH + PROFILE V8
+===================================================== */
+
+const memberSearch =
+    document.getElementById(
+        "memberSearch"
+    );
+
+const memberRankFilter =
+    document.getElementById(
+        "memberRankFilter"
+    );
+
+
+function renderMembers() {
+
+    if (!membersContainer) return;
+
+    const search =
+        memberSearch
+            ? memberSearch.value
+                .trim()
+                .toLowerCase()
+            : "";
+
+    const rank =
+        memberRankFilter
+            ? memberRankFilter.value
+            : "ALL";
+
+
+    const filtered =
+        state.members.filter(member => {
+
+            const matchesName =
+                member.name
+                    .toLowerCase()
+                    .includes(search);
+
+            const matchesRank =
+                rank === "ALL" ||
+                member.rank === rank;
+
+            return (
+                matchesName &&
+                matchesRank
+            );
+
+        });
+
+
+    membersContainer.innerHTML = "";
+
+
+    if (filtered.length === 0) {
+
+        membersContainer.innerHTML = `
+            <div class="empty-log">
+                Aucun membre trouvé.
+            </div>
+        `;
+
+        return;
+    }
+
+
+    filtered.forEach(member => {
+
+        const card =
+            document.createElement("div");
+
+        card.className =
+            "member-card";
+
+        card.style.cursor =
+            "pointer";
+
+
+        card.innerHTML = `
+
+            <div class="member-avatar">
+                ${member.name.charAt(0)}
+            </div>
+
+            <h3>
+                ${member.name}
+            </h3>
+
+            <div class="member-rank">
+                ${member.rank}
+            </div>
+
+            <div class="member-level">
+
+                <span>
+                    LEVEL
+                </span>
+
+                <strong>
+                    ${member.level}
+                </strong>
+
+            </div>
+
+            <div class="member-status">
+                ${member.status}
+            </div>
+
+        `;
+
+
+        card.addEventListener(
+            "click",
+            () => openMemberProfile(member)
+        );
+
+
+        membersContainer.appendChild(card);
+
+    });
+
+}
+
+
+function openMemberProfile(member) {
+
+    const modal =
+        document.getElementById(
+            "memberModal"
+        );
+
+    if (!modal) return;
+
+
+    document.getElementById(
+        "modalAvatar"
+    ).textContent =
+        member.name.charAt(0);
+
+
+    document.getElementById(
+        "modalName"
+    ).textContent =
+        member.name;
+
+
+    document.getElementById(
+        "modalRank"
+    ).textContent =
+        member.rank;
+
+
+    document.getElementById(
+        "modalLevel"
+    ).textContent =
+        member.level;
+
+
+    document.getElementById(
+        "modalStatus"
+    ).textContent =
+        member.status;
+
+
+    const memberIndex =
+        state.members.indexOf(member);
+
+
+    document.getElementById(
+        "modalId"
+    ).textContent =
+        "LD-" +
+        String(memberIndex + 1)
+            .padStart(3, "0");
+
+
+    modal.classList.add("show");
+
+}
+
+
+const closeMemberModal =
+    document.getElementById(
+        "closeMemberModal"
+    );
+
+
+if (closeMemberModal) {
+
+    closeMemberModal.addEventListener(
+        "click",
+        () => {
+
+            document
+                .getElementById(
+                    "memberModal"
+                )
+                ?.classList.remove(
+                    "show"
+                );
+
+        }
+    );
+
+}
+
+
+const memberModal =
+    document.getElementById(
+        "memberModal"
+    );
+
+
+if (memberModal) {
+
+    memberModal.addEventListener(
+        "click",
+        event => {
+
+            if (
+                event.target ===
+                memberModal
+            ) {
+
+                memberModal.classList.remove(
+                    "show"
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+if (memberSearch) {
+
+    memberSearch.addEventListener(
+        "input",
+        renderMembers
+    );
+
+}
+
+
+if (memberRankFilter) {
+
+    memberRankFilter.addEventListener(
+        "change",
+        renderMembers
+    );
+
+}
+
+
+/* Re-render avec recherche */
+renderMembers();
