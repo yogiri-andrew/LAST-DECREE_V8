@@ -1639,3 +1639,124 @@ footer {
 
     letter-spacing: .15em;
 }
+/* =====================================================
+   MEMBERS V8
+===================================================== */
+
+.member-actions {
+    margin-bottom: 25px;
+}
+
+.members-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.member-card {
+    position: relative;
+
+    padding: 25px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(157,78,221,.09),
+            rgba(8,4,15,.95)
+        );
+
+    border: 1px solid rgba(199,125,255,.16);
+
+    transition: .3s;
+}
+
+.member-card:hover {
+    transform: translateY(-5px);
+
+    border-color:
+        rgba(199,125,255,.5);
+
+    box-shadow:
+        0 0 30px rgba(157,78,221,.12);
+}
+
+.member-avatar {
+    width: 55px;
+    height: 55px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 18px;
+
+    border: 1px solid #9d4edd;
+
+    color: #c77dff;
+
+    font-family: Orbitron, sans-serif;
+
+    font-size: 20px;
+}
+
+.member-card h3 {
+    color: white;
+
+    font-family: Orbitron, sans-serif;
+
+    font-size: 16px;
+
+    margin-bottom: 6px;
+}
+
+.member-rank {
+    color: #c77dff;
+
+    font-size: 10px;
+
+    letter-spacing: .15em;
+}
+
+.member-level {
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-top: 20px;
+
+    color: #777;
+
+    font-size: 10px;
+}
+
+.member-status {
+    display: inline-block;
+
+    margin-top: 15px;
+
+    padding: 5px 9px;
+
+    border: 1px solid rgba(85,255,153,.25);
+
+    color: #55ff99;
+
+    font-size: 8px;
+
+    letter-spacing: .15em;
+}
+
+@media (max-width: 800px) {
+
+    .members-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+}
+
+@media (max-width: 500px) {
+
+    .members-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
