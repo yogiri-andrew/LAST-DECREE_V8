@@ -543,6 +543,22 @@
     </div>
 
 </div>
+<script>
+window.addEventListener("load", function () {
+    const loader = document.getElementById("loader");
+
+    if (loader) {
+        setTimeout(function () {
+            loader.classList.add("hidden");
+
+            setTimeout(function () {
+                loader.style.display = "none";
+            }, 800);
+
+        }, 500);
+    }
+});
+</script>
 </body>
 <div id="classifiedScreen">
 
