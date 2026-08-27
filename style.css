@@ -2342,3 +2342,220 @@ body {
     overflow-x: hidden;
 }
 }
+/* =====================================================
+   ADMIN PANEL V8
+===================================================== */
+
+.admin-warning {
+    padding: 18px 20px;
+    margin-bottom: 20px;
+
+    background: rgba(255,49,88,.05);
+
+    border:
+        1px solid rgba(255,49,88,.25);
+}
+
+.admin-warning span {
+    color: #ff3158;
+
+    font-family: Orbitron, sans-serif;
+
+    font-size: 10px;
+
+    letter-spacing: .15em;
+}
+
+.admin-warning p {
+    margin-top: 7px;
+
+    color: #777;
+
+    font-size: 11px;
+}
+
+
+.admin-stats {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 12px;
+
+    margin-bottom: 20px;
+}
+
+.admin-stat {
+    padding: 22px;
+
+    background:
+        rgba(10,5,18,.9);
+
+    border:
+        1px solid
+        rgba(199,125,255,.15);
+}
+
+.admin-stat span {
+    display: block;
+
+    color: #666;
+
+    font-size: 9px;
+
+    letter-spacing: .2em;
+
+    margin-bottom: 10px;
+}
+
+.admin-stat strong {
+    color: #c77dff;
+
+    font-family: Orbitron, sans-serif;
+
+    font-size: 20px;
+}
+
+.admin-stat .online {
+    color: #55ff99;
+
+    font-size: 13px;
+}
+
+
+.admin-section {
+    margin-bottom: 20px;
+
+    background:
+        rgba(7,4,13,.92);
+
+    border:
+        1px solid
+        rgba(199,125,255,.15);
+}
+
+.admin-section-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 18px 20px;
+
+    border-bottom:
+        1px solid
+        rgba(199,125,255,.12);
+}
+
+.admin-section-header h3 {
+    color: #c77dff;
+
+    font-family: Orbitron, sans-serif;
+
+    font-size: 11px;
+
+    letter-spacing: .12em;
+}
+
+
+.admin-member,
+.admin-decree {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 16px 20px;
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,.04);
+}
+
+.admin-member:last-child,
+.admin-decree:last-child {
+    border-bottom: none;
+}
+
+.admin-member-info strong,
+.admin-decree-info strong {
+    display: block;
+
+    color: white;
+
+    font-size: 12px;
+}
+
+.admin-member-info span,
+.admin-decree-info span {
+    display: block;
+
+    margin-top: 5px;
+
+    color: #777;
+
+    font-size: 9px;
+}
+
+.admin-actions {
+    display: flex;
+
+    gap: 6px;
+
+    flex-wrap: wrap;
+}
+
+.admin-actions button {
+    padding: 7px 9px;
+
+    background: transparent;
+
+    border:
+        1px solid
+        rgba(199,125,255,.2);
+
+    color: #aaa;
+
+    font-size: 9px;
+
+    cursor: pointer;
+}
+
+.admin-actions button:hover {
+    border-color: #c77dff;
+
+    color: #c77dff;
+}
+
+.admin-actions .danger:hover {
+    border-color: #ff3158;
+
+    color: #ff3158;
+}
+
+
+@media (max-width: 600px) {
+
+    .admin-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-member,
+    .admin-decree {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .admin-actions {
+        width: 100%;
+    }
+
+}
