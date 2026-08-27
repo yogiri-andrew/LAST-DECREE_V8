@@ -1037,3 +1037,89 @@ console.log(
 console.log(
     "V8 FREE EDITION — SYSTEM READY"
 );
+/* =====================================================
+   CLASSIFIED ACCESS V8
+===================================================== */
+
+const classifiedScreen =
+    document.getElementById("classifiedScreen");
+
+const agentName =
+    document.getElementById("agentName");
+
+const accessButton =
+    document.getElementById("accessButton");
+
+const accessStatus =
+    document.getElementById("accessStatus");
+
+
+function grantAccess() {
+
+    const name =
+        agentName.value.trim();
+
+    if (!name) {
+
+        accessStatus.textContent =
+            "⚠ IDENTIFIANT REQUIS";
+
+        return;
+    }
+
+    state.username =
+        name.toUpperCase();
+
+    saveState();
+
+    updateProfile();
+
+    accessStatus.style.color =
+        "#55ff99";
+
+    accessStatus.textContent =
+        "✓ IDENTITÉ RECONNUE";
+
+    accessButton.disabled = true;
+
+    setTimeout(() => {
+
+        classifiedScreen.classList.add(
+            "access-granted"
+        );
+
+        addNotification(
+            "Connexion de " +
+            state.username +
+            " établie."
+        );
+
+    }, 700);
+
+}
+
+
+if (accessButton) {
+
+    accessButton.addEventListener(
+        "click",
+        grantAccess
+    );
+
+}
+
+
+if (agentName) {
+
+    agentName.addEventListener(
+        "keydown",
+        event => {
+
+            if (event.key === "Enter") {
+                grantAccess();
+            }
+
+        }
+    );
+
+}
