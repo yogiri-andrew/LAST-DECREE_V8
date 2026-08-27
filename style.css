@@ -560,3 +560,96 @@ footer {
   }
 
   }
+/* =========================
+   V8 EXTRA UI
+========================= */
+
+.ld-toast {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 9999;
+
+    min-width: 240px;
+    max-width: 360px;
+
+    padding: 16px 18px;
+
+    background: rgba(10, 10, 15, .96);
+
+    border: 1px solid rgba(150, 100, 255, .45);
+
+    box-shadow:
+        0 0 30px rgba(100, 70, 255, .12);
+
+    transform: translateX(120%);
+    opacity: 0;
+
+    transition:
+        transform .4s ease,
+        opacity .4s ease;
+}
+
+.ld-toast.show {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.ld-toast strong {
+    display: block;
+
+    color: #b99cff;
+
+    font-family: Orbitron, sans-serif;
+
+    font-size: 10px;
+
+    letter-spacing: .18em;
+
+    margin-bottom: 6px;
+}
+
+.ld-toast span {
+    color: #aaa;
+
+    font-size: 13px;
+}
+
+.oracle-message span {
+    color: #a98cff;
+}
+
+.user-message span {
+    color: #777;
+}
+
+.oracle-message p {
+    border-color: rgba(150, 100, 255, .2);
+}
+
+.decree-status {
+    color: #aaa;
+}
+
+.decree-card:nth-child(2n) .decree-status {
+    color: #9cffa9;
+}
+
+.rank.supreme h3 {
+    color: #d0b8ff;
+}
+
+.status-dot {
+    background: #7dff91;
+    box-shadow: 0 0 15px #7dff91;
+}
+
+.oracle-dot {
+    background: #a98cff;
+    box-shadow: 0 0 15px #a98cff;
+}
+
+::selection {
+    background: #9b7cff;
+    color: #fff;
+}
