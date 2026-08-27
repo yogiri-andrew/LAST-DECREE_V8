@@ -1051,9 +1051,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!screen || !input || !button) {
         console.error("❌ CLASSIFIED : éléments manquants");
         return;
-    }
+    
 
-    function authenticate() {
+    function authenticate() 
 
         const name = input.value.trim();
 
