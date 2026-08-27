@@ -1123,3 +1123,192 @@ if (agentName) {
     );
 
 }
+/* =====================================================
+   MEMBERS SYSTEM V8
+===================================================== */
+
+if (!state.members) {
+
+    state.members = [
+
+        {
+            name: "SHIDO",
+            rank: "DECREE AGENT",
+            level: 1,
+            status: "ONLINE"
+        },
+
+        {
+            name: "YOGIRI",
+            rank: "EXECUTOR",
+            level: 12,
+            status: "ONLINE"
+        },
+
+        {
+            name: "UNKNOWN",
+            rank: "SHINIGAMI",
+            level: 8,
+            status: "OFFLINE"
+        }
+
+    ];
+
+    saveState();
+
+}
+
+
+const membersContainer =
+    document.getElementById(
+        "membersContainer"
+    );
+
+
+function renderMembers() {
+
+    if (!membersContainer) return;
+
+
+    membersContainer.innerHTML = "";
+
+
+    state.members.forEach(member => {
+
+        const card =
+            document.createElement("div");
+
+        card.className =
+            "member-card";
+
+
+        const avatar =
+            document.createElement("div");
+
+        avatar.className =
+            "member-avatar";
+
+        avatar.textContent =
+            member.name
+                .charAt(0)
+                .toUpperCase();
+
+
+        const name =
+            document.createElement("h3");
+
+        name.textContent =
+            member.name;
+
+
+        const rank =
+            document.createElement("div");
+
+        rank.className =
+            "member-rank";
+
+        rank.textContent =
+            member.rank;
+
+
+        const level =
+            document.createElement("div");
+
+        level.className =
+            "member-level";
+
+        level.innerHTML = `
+            <span>LEVEL</span>
+            <strong>${member.level}</strong>
+        `;
+
+
+        const status =
+            document.createElement("div");
+
+        status.className =
+            "member-status";
+
+        status.textContent =
+            member.status;
+
+
+        card.appendChild(avatar);
+        card.appendChild(name);
+        card.appendChild(rank);
+        card.appendChild(level);
+        card.appendChild(status);
+
+
+        membersContainer.appendChild(card);
+
+    });
+
+}
+
+
+const addMemberBtn =
+    document.getElementById(
+        "addMemberBtn"
+    );
+
+
+if (addMemberBtn) {
+
+    addMemberBtn.addEventListener(
+        "click",
+        () => {
+
+            const name =
+                prompt(
+                    "Identifiant du nouveau membre :"
+                );
+
+
+            if (!name || !name.trim()) {
+                return;
+            }
+
+
+            const rank =
+                prompt(
+                    "Rang du membre :",
+                    "DECREE AGENT"
+                );
+
+
+            state.members.push({
+
+                name:
+                    name.trim().toUpperCase(),
+
+                rank:
+                    rank && rank.trim()
+                        ? rank.trim().toUpperCase()
+                        : "DECREE AGENT",
+
+                level: 1,
+
+                status: "ONLINE"
+
+            });
+
+
+            saveState();
+
+            renderMembers();
+
+            addXP(15);
+
+            addNotification(
+                "Nouveau membre ajouté : " +
+                name.toUpperCase()
+            );
+
+        }
+    );
+
+}
+
+
+renderMembers();
