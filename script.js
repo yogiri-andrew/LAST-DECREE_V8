@@ -928,7 +928,107 @@ console.log(
     "%c LAST DECREE V8 ",
     "background:#9d4edd;color:white;padding:8px;font-weight:bold"
 );
+/* =====================================================
+   DASHBOARD V8
+===================================================== */
 
+function updateDashboard() {
+
+    const xpFill =
+        document.getElementById("xpFill");
+
+    const decreeCount =
+        document.getElementById("decreeCount");
+
+    if (xpFill) {
+
+        const required =
+            state.level * 100;
+
+        const percentage =
+            Math.min(
+                (state.xp / required) * 100,
+                100
+            );
+
+        xpFill.style.width =
+            percentage + "%";
+    }
+
+    if (decreeCount) {
+
+        decreeCount.textContent =
+            state.decrees.length;
+    }
+
+    renderNotifications();
+}
+
+
+function renderNotifications() {
+
+    const container =
+        document.getElementById(
+            "notificationList"
+        );
+
+    if (!container) return;
+
+    if (
+        !state.notifications ||
+        state.notifications.length === 0
+    ) {
+
+        container.innerHTML =
+            `<p class="empty-log">
+                Aucun événement enregistré.
+            </p>`;
+
+        return;
+    }
+
+    container.innerHTML =
+        state.notifications
+            .slice(0, 10)
+            .map(notification => `
+                <div class="log-entry">
+                    <span>
+                        ${notification.text}
+                    </span>
+
+                    <time>
+                        ${notification.date}
+                    </time>
+                </div>
+            `)
+            .join("");
+}
+
+
+const clearNotifications =
+    document.getElementById(
+        "clearNotifications"
+    );
+
+if (clearNotifications) {
+
+    clearNotifications.addEventListener(
+        "click",
+        () => {
+
+            state.notifications = [];
+
+            saveState();
+
+            renderNotifications();
+
+        }
+    );
+
+}
+
+
+updateDashboard();
 console.log(
     "%c ORACLE LOCAL ONLINE ",
     "background:#00f5ff;color:#000;padding:5px"
