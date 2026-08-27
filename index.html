@@ -166,7 +166,29 @@
 
     </section>
     <div id="membersContainer" class="members-grid"></div>
+       <div class="member-tools">
 
+    <input
+        id="memberSearch"
+        type="search"
+        placeholder="RECHERCHER UN MEMBRE..."
+    >
+
+    <select id="memberRankFilter">
+        <option value="ALL">TOUS LES RANGS</option>
+        <option value="THE DECREE">THE DECREE</option>
+        <option value="OVERLORD">OVERLORD</option>
+        <option value="EXECUTOR">EXECUTOR</option>
+        <option value="ARCHON">ARCHON</option>
+        <option value="SHINIGAMI">SHINIGAMI</option>
+        <option value="WARDEN">WARDEN</option>
+        <option value="ELITE AGENT">ELITE AGENT</option>
+        <option value="DECREE AGENT">DECREE AGENT</option>
+        <option value="INITIATE">INITIATE</option>
+        <option value="RECRUIT">RECRUIT</option>
+    </select>
+
+       </div>
     </section>
     <section id="home" class="section active">
 
@@ -470,7 +492,57 @@
   </footer>
 
   <script src="script.js"></script>
+<div id="memberModal" class="member-modal">
 
+    <div class="member-card-full">
+
+        <button
+            id="closeMemberModal"
+            class="modal-close"
+        >
+            ×
+        </button>
+
+        <div
+            id="modalAvatar"
+            class="modal-avatar"
+        >
+            S
+        </div>
+
+        <span class="modal-label">
+            LAST DECREE // PERSONNEL FILE
+        </span>
+
+        <h2 id="modalName">
+            SHIDO
+        </h2>
+
+        <div class="modal-rank" id="modalRank">
+            RECRUIT
+        </div>
+
+        <div class="modal-info-grid">
+
+            <div>
+                <span>LEVEL</span>
+                <strong id="modalLevel">1</strong>
+            </div>
+
+            <div>
+                <span>STATUS</span>
+                <strong id="modalStatus">ONLINE</strong>
+            </div>
+
+        </div>
+
+        <div class="modal-id">
+            ID // <span id="modalId">LD-001</span>
+        </div>
+
+    </div>
+
+</div>
 </body>
 <div id="classifiedScreen">
 
