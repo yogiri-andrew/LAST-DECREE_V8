@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>LAST DECREE — V8</title>
+
+  <meta name="description"
+        content="LAST DECREE — système organisationnel V8">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div id="bootScreen">
+    <div class="boot-logo">LAST DECREE</div>
+    <div class="boot-line"></div>
+    <p>INITIALISATION DU SYSTÈME...</p>
+  </div>
+
+  <div class="background-grid"></div>
+  <div class="scanlines"></div>
+
+  <header class="navbar">
+    <div class="brand">
+      <span class="brand-symbol">◈</span>
+      <span>LAST DECREE</span>
+      <small>V8</small>
+    </div>
+
+    <nav>
+      <button data-section="home">ACCUEIL</button>
+      <button data-section="decrees">DÉCRETS</button>
+      <button data-section="hierarchy">HIÉRARCHIE</button>
+      <button data-section="ai">ORACLE AI</button>
+    </nav>
+
+    <button id="menuBtn" class="menu-btn">☰</button>
+  </header>
+
+  <main>
+
+    <section id="home" class="section active">
+
+      <div class="hero">
+
+        <div class="status">
+          <span class="status-dot"></span>
+          SYSTEM ONLINE
+        </div>
+
+        <h1>
+          LAST<br>
+          <span>DECREE</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          THE DECREE HAS BEEN ISSUED.
+        </p>
+
+        <div class="hero-actions">
+          <button class="primary-btn" data-section="decrees">
+            ACCÉDER AUX DÉCRETS
+          </button>
+
+          <button class="secondary-btn" data-section="ai">
+            ◈ INTERROGER ORACLE
+          </button>
+        </div>
+
+      </div>
+
+      <div class="stats">
+
+        <div class="stat-card">
+          <span>STATUS</span>
+          <strong>ONLINE</strong>
+        </div>
+
+        <div class="stat-card">
+          <span>VERSION</span>
+          <strong>V8.0</strong>
+        </div>
+
+        <div class="stat-card">
+          <span>SECURITY</span>
+          <strong>ACTIVE</strong>
+        </div>
+
+        <div class="stat-card">
+          <span>ORACLE</span>
+          <strong>READY</strong>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <section id="decrees" class="section">
+
+      <div class="section-title">
+        <span>ARCHIVE</span>
+        <h2>LAST DECREE</h2>
+        <p>Archives des décrets de l'organisation.</p>
+      </div>
+
+      <div id="decreeContainer" class="decree-grid">
+
+        <article class="decree-card">
+          <div class="decree-number">#001</div>
+          <h3>THE FIRST DECREE</h3>
+          <p>
+            Le système reconnaît officiellement
+            l'existence de LAST DECREE.
+          </p>
+          <span class="decree-status">ARCHIVED</span>
+        </article>
+
+        <article class="decree-card">
+          <div class="decree-number">#002</div>
+          <h3>THE SECOND DECREE</h3>
+          <p>
+            Toute décision majeure doit être
+            enregistrée dans les archives.
+          </p>
+          <span class="decree-status">ACTIVE</span>
+        </article>
+
+        <article class="decree-card">
+          <div class="decree-number">#003</div>
+          <h3>THE THIRD DECREE</h3>
+          <p>
+            Le système doit évoluer avec
+            l'organisation.
+          </p>
+          <span class="decree-status">ACTIVE</span>
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <section id="hierarchy" class="section">
+
+      <div class="section-title">
+        <span>STRUCTURE</span>
+        <h2>HIÉRARCHIE</h2>
+        <p>Structure interne de LAST DECREE.</p>
+      </div>
+
+      <div class="hierarchy">
+
+        <div class="rank supreme">
+          <span class="rank-number">01</span>
+          <div>
+            <small>SUPREME AUTHORITY</small>
+            <h3>THE DECREE</h3>
+          </div>
+        </div>
+
+        <div class="rank">
+          <span class="rank-number">02</span>
+          <div>
+            <small>COMMAND</small>
+            <h3>OVERLORD</h3>
+          </div>
+        </div>
+
+        <div class="rank">
+          <span class="rank-number">03</span>
+          <div>
+            <small>EXECUTIVE</small>
+            <h3>EXECUTOR</h3>
+          </div>
+        </div>
+
+        <div class="rank">
+          <span class="rank-number">04</span>
+          <div>
+            <small>ELITE</small>
+            <h3>SHINIGAMI</h3>
+          </div>
+        </div>
+
+        <div class="rank">
+          <span class="rank-number">05</span>
+          <div>
+            <small>MEMBER</small>
+            <h3>DECREE AGENT</h3>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <section id="ai" class="section">
+
+      <div class="section-title">
+        <span>ARTIFICIAL INTELLIGENCE</span>
+        <h2>ORACLE AI</h2>
+        <p>Interface d'intelligence de LAST DECREE.</p>
+      </div>
+
+      <div class="oracle">
+
+        <div class="oracle-header">
+          <div>
+            <span class="oracle-dot"></span>
+            ORACLE ONLINE
+          </div>
+
+          <span>V8 // AI CORE</span>
+        </div>
+
+        <div id="chatMessages" class="chat-messages">
+
+          <div class="message oracle-message">
+            <span>ORACLE</span>
+            <p>
+              Système opérationnel.
+              Quelle est votre requête ?
+            </p>
+          </div>
+
+        </div>
+
+        <form id="chatForm" class="chat-form">
+
+          <input
+            id="chatInput"
+            type="text"
+            autocomplete="off"
+            placeholder="Entrez votre requête..."
+            maxlength="1000"
+          >
+
+          <button type="submit">
+            ENVOYER
+          </button>
+
+        </form>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer>
+    <span>LAST DECREE</span>
+    <span>V8.0</span>
+    <span>SYSTEM OPERATIONAL</span>
+  </footer>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
