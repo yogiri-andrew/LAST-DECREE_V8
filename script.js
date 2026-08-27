@@ -1140,11 +1140,81 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
+/
+        /* =====================================================
+   RANK SYSTEM V8
+===================================================== */
+
+const rankSystem = [
+
+    {
+        name: "THE DECREE",
+        level: 10,
+        permission: "TOTAL AUTHORITY"
+    },
+
+    {
+        name: "OVERLORD",
+        level: 9,
+        permission: "COMMAND"
+    },
+
+    {
+        name: "EXECUTOR",
+        level: 8,
+        permission: "EXECUTION"
+    },
+
+    {
+        name: "ARCHON",
+        level: 7,
+        permission: "HIGH COMMAND"
+    },
+
+    {
+        name: "SHINIGAMI",
+        level: 6,
+        permission: "ELITE ACCESS"
+    },
+
+    {
+        name: "WARDEN",
+        level: 5,
+        permission: "SECURITY"
+    },
+
+    {
+        name: "ELITE AGENT",
+        level: 4,
+        permission: "ADVANCED ACCESS"
+    },
+
+    {
+        name: "DECREE AGENT",
+        level: 3,
+        permission: "STANDARD ACCESS"
+    },
+
+    {
+        name: "INITIATE",
+        level: 2,
+        permission: "LIMITED ACCESS"
+    },
+
+    {
+        name: "RECRUIT",
+        level: 1,
+        permission: "BASIC ACCESS"
+    }
+
+];
+
+
 /* =====================================================
    MEMBERS SYSTEM V8
 ===================================================== */
 
-if (!state.members) {
+if (!Array.isArray(state.members)) {
 
     state.members = [
 
@@ -1181,13 +1251,70 @@ const membersContainer =
         "membersContainer"
     );
 
+
+function renderMembers() {
+
     if (!membersContainer) return;
+
+    const searchInput =
+        document.getElementById(
+            "memberSearch"
+        );
+
+    const rankFilter =
+        document.getElementById(
+            "memberRankFilter"
+        );
+
+    const search =
+        searchInput
+            ? searchInput.value
+                .trim()
+                .toLowerCase()
+            : "";
+
+    const selectedRank =
+        rankFilter
+            ? rankFilter.value
+            : "ALL";
+
+
+    const filtered =
+        state.members.filter(member => {
+
+            const matchesName =
+                member.name
+                    .toLowerCase()
+                    .includes(search);
+
+            const matchesRank =
+                selectedRank === "ALL" ||
+                member.rank === selectedRank;
+
+            return (
+                matchesName &&
+                matchesRank
+            );
+
+        });
 
 
     membersContainer.innerHTML = "";
 
 
-    state.members.forEach(member => {
+    if (filtered.length === 0) {
+
+        membersContainer.innerHTML = `
+            <div class="empty-log">
+                Aucun membre trouvé.
+            </div>
+        `;
+
+        return;
+    }
+
+
+    filtered.forEach(member => {
 
         const card =
             document.createElement("div");
@@ -1195,63 +1322,45 @@ const membersContainer =
         card.className =
             "member-card";
 
-
-        const avatar =
-            document.createElement("div");
-
-        avatar.className =
-            "member-avatar";
-
-        avatar.textContent =
-            member.name
-                .charAt(0)
-                .toUpperCase();
+        card.style.cursor =
+            "pointer";
 
 
-        const name =
-            document.createElement("h3");
+        card.innerHTML = `
 
-        name.textContent =
-            member.name;
+            <div class="member-avatar">
+                ${member.name.charAt(0)}
+            </div>
 
+            <h3>
+                ${member.name}
+            </h3>
 
-        const rank =
-            document.createElement("div");
+            <div class="member-rank">
+                ${member.rank}
+            </div>
 
-        rank.className =
-            "member-rank";
+            <div class="member-level">
 
-        rank.textContent =
-            member.rank;
+                <span>LEVEL</span>
 
+                <strong>
+                    ${member.level}
+                </strong>
 
-        const level =
-            document.createElement("div");
+            </div>
 
-        level.className =
-            "member-level";
+            <div class="member-status">
+                ${member.status}
+            </div>
 
-        level.innerHTML = `
-            <span>LEVEL</span>
-            <strong>${member.level}</strong>
         `;
 
 
-        const status =
-            document.createElement("div");
-
-        status.className =
-            "member-status";
-
-        status.textContent =
-            member.status;
-
-
-        card.appendChild(avatar);
-        card.appendChild(name);
-        card.appendChild(rank);
-        card.appendChild(level);
-        card.appendChild(status);
+        card.addEventListener(
+            "click",
+            () => openMemberProfile(member)
+        );
 
 
         membersContainer.appendChild(card);
@@ -1260,6 +1369,193 @@ const membersContainer =
 
 }
 
+
+/* =====================================================
+   MEMBER PROFILE
+===================================================== */
+
+function openMemberProfile(member) {
+
+    const modal =
+        document.getElementById(
+            "memberModal"
+        );
+
+    if (!modal) return;
+
+
+    const avatar =
+        document.getElementById(
+            "modalAvatar"
+        );
+
+    const name =
+        document.getElementById(
+            "modalName"
+        );
+
+    const rank =
+        document.getElementById(
+            "modalRank"
+        );
+
+    const level =
+        document.getElementById(
+            "modalLevel"
+        );
+
+    const status =
+        document.getElementById(
+            "modalStatus"
+        );
+
+    const id =
+        document.getElementById(
+            "modalId"
+        );
+
+
+    if (avatar) {
+        avatar.textContent =
+            member.name.charAt(0);
+    }
+
+    if (name) {
+        name.textContent =
+            member.name;
+    }
+
+    if (rank) {
+        rank.textContent =
+            member.rank;
+    }
+
+    if (level) {
+        level.textContent =
+            member.level;
+    }
+
+    if (status) {
+        status.textContent =
+            member.status;
+    }
+
+
+    const index =
+        state.members.indexOf(member);
+
+
+    if (id) {
+
+        id.textContent =
+            "LD-" +
+            String(index + 1)
+                .padStart(3, "0");
+
+    }
+
+
+    modal.classList.add("show");
+
+}
+
+
+/* =====================================================
+   MEMBER MODAL
+===================================================== */
+
+const closeMemberModal =
+    document.getElementById(
+        "closeMemberModal"
+    );
+
+const memberModal =
+    document.getElementById(
+        "memberModal"
+    );
+
+
+if (closeMemberModal) {
+
+    closeMemberModal.addEventListener(
+        "click",
+        () => {
+
+            if (memberModal) {
+
+                memberModal.classList.remove(
+                    "show"
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+if (memberModal) {
+
+    memberModal.addEventListener(
+        "click",
+        event => {
+
+            if (
+                event.target ===
+                memberModal
+            ) {
+
+                memberModal.classList.remove(
+                    "show"
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   MEMBER SEARCH
+===================================================== */
+
+const memberSearch =
+    document.getElementById(
+        "memberSearch"
+    );
+
+const memberRankFilter =
+    document.getElementById(
+        "memberRankFilter"
+    );
+
+
+if (memberSearch) {
+
+    memberSearch.addEventListener(
+        "input",
+        renderMembers
+    );
+
+}
+
+
+if (memberRankFilter) {
+
+    memberRankFilter.addEventListener(
+        "change",
+        renderMembers
+    );
+
+}
+
+
+/* =====================================================
+   ADD MEMBER
+===================================================== */
 
 const addMemberBtn =
     document.getElementById(
@@ -1287,7 +1583,7 @@ if (addMemberBtn) {
             const rank =
                 prompt(
                     "Rang du membre :",
-                    "DECREE AGENT"
+                    "RECRUIT"
                 );
 
 
@@ -1299,7 +1595,7 @@ if (addMemberBtn) {
                 rank:
                     rank && rank.trim()
                         ? rank.trim().toUpperCase()
-                        : "DECREE AGENT",
+                        : "RECRUIT",
 
                 level: 1,
 
@@ -1312,7 +1608,14 @@ if (addMemberBtn) {
 
             renderMembers();
 
-            addXP(15);
+            if (
+                typeof addXP ===
+                "function"
+            ) {
+
+                addXP(15);
+
+            }
 
             addNotification(
                 "Nouveau membre ajouté : " +
@@ -1324,6 +1627,10 @@ if (addMemberBtn) {
 
 }
 
+
+/* =====================================================
+   RENDER MEMBERS
+===================================================== */
 
 renderMembers();
 /* =====================================================
